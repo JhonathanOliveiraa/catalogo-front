@@ -1,0 +1,22 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  # Ligar quando existirem código e Dockerfile:
+  # push:
+  #   branches: [main]
+  # pull_request:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  pipeline:
+    uses: JhonathanOliveiraa/tcc-pipeline-templates/.github/workflows/frontend-service.yml@main
+    with:
+      platform-repository: JhonathanOliveiraa/tcc-platform
+      overlay-path: apps/catalogo-front
+      enable-deploy: ${{ github.event_name != 'pull_request' }}
+    secrets:
+      platform-token: ${{ secrets.PLATFORM_REPO_TOKEN }}
