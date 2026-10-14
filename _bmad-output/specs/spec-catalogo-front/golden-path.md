@@ -31,7 +31,8 @@ Em cada ambiente, `API_BASE_URL` do front recebe a URL da API, e `Cors__OrigensP
 
 testes → Trivy → imagem `linux/arm64` no GHCR → commit da nova tag em `tcc-platform/apps/catalogo-front` → Argo CD sincroniza.
 
-- Comando de teste da esteira: `npm test -- --watch=false --browsers=ChromeHeadless`.
+- Comando de teste da esteira: `npm test -- --watch=false` (Vitest + jsdom), passado pelo `ci.yml` em `test-command`, junto com `node-version: "24"`. O padrão do template (`--browsers=ChromeHeadless`, Node 22) não serve a este front.
+- Trivy no código (vulnerabilidades e segredos, CRITICAL) e na imagem (CRITICAL com correção disponível, `ignore-unfixed`): qualquer achado falha a esteira.
 - O deploy fica desligado em `pull_request` (`enable-deploy`).
 - Secret do repositório: `PLATFORM_REPO_TOKEN` (fine-grained, só `tcc-platform`, Contents: Read and write).
 - Hoje só existe `workflow_dispatch`. Ativar os gatilhos `push`/`pull_request` (bloco comentado) assim que existirem código e Dockerfile faz parte da entrega.
