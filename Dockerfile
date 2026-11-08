@@ -14,6 +14,11 @@ RUN npm run build
 # substituído: ele já põe pid e temporários em /tmp, compatível com readOnlyRootFilesystem
 # + emptyDir em /tmp e /var/cache/nginx.
 FROM nginxinc/nginx-unprivileged:stable-alpine
+# Pacotes da imagem base atualizados no build: correções do Alpine publicadas depois da última
+# imagem do nginx (ex.: CVE-2026-111497 em brotli-libs, barrada pelo Trivy na 1ª esteira).
+# Único RUN do estágio arm64 (executado sob QEMU na CI; leva poucos segundos).
+USER root
+RUN apk upgrade --no-cache
 COPY docker/default.conf /etc/nginx/conf.d/default.conf
 COPY docker/config.json.template /opt/catalogo/config.json.template
 COPY --chmod=0755 docker/entrypoint/40-config-json.sh /docker-entrypoint.d/40-config-json.sh
