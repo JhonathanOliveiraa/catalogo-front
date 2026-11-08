@@ -53,17 +53,14 @@ antes; `src/app/api/` está no `.gitignore` e nunca é editado à mão.
 
 `openapi/catalogo-api.json` é a cópia versionada do `/openapi/v1.json` da `catalogo-api`.
 
-> **Atenção:** a cópia atual foi **escrita à mão** a partir de `docs/referencia-api/` (rotas, enums
-> como string, ProblemDetails, limites do AD-4), no formato que o `Microsoft.AspNetCore.OpenApi`
-> do .NET 10 gera, porque a API ainda não estava publicada. **Substitua-a pela real** assim que a API
-> estiver no ar em hml:
->
-> ```bash
-> npm run openapi:atualizar -- https://hml-catalogo-api.tcc.altasistemas.com.br
-> # equivale a: curl https://hml-catalogo-api.tcc.altasistemas.com.br/openapi/v1.json, removendo "servers"
-> npm test -- --watch=false && npm run build
-> ```
->
+Para atualizar quando o contrato da API mudar (commit deliberado):
+
+```bash
+npm run openapi:atualizar -- https://hml-catalogo-api.tcc.altasistemas.com.br
+# equivale a: curl https://hml-catalogo-api.tcc.altasistemas.com.br/openapi/v1.json, removendo "servers"
+npm test -- --watch=false && npm run build
+```
+
 > O script remove `servers`: o ng-openapi-gen usaria `servers[0].url` como `rootUrl` padrão, e
 > nenhuma URL de ambiente pode entrar no bundle. Se o arquivo real mudar nomes de operação (ex.:
 > `operationId` explícito) ou de parâmetros, ajuste só `src/app/produtos/produtos.service.ts`.

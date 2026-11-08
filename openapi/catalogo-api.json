@@ -16,6 +16,11 @@
               "schema": {
                 "$ref": "#/components/schemas/CriarProdutoRequest"
               }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarProdutoRequest"
+              }
             }
           },
           "required": true
@@ -36,17 +41,7 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
@@ -62,30 +57,28 @@
             "name": "page",
             "in": "query",
             "schema": {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": [
                 "integer",
                 "string"
               ],
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "format": "int32",
-              "default": 1,
-              "minimum": 1,
-              "maximum": 2147483647
+              "format": "int32"
             }
           },
           {
             "name": "pageSize",
             "in": "query",
             "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": [
                 "integer",
                 "string"
               ],
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "format": "int32",
-              "default": 20,
-              "minimum": 1,
-              "maximum": 100
+              "format": "int32"
             }
           },
           {
@@ -99,28 +92,28 @@
             "name": "precoMin",
             "in": "query",
             "schema": {
+              "maximum": 7.922816251426434e+28,
+              "minimum": 0,
+              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
               "type": [
                 "number",
                 "string"
               ],
-              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
-              "format": "double",
-              "minimum": 0,
-              "maximum": 9999999999.99
+              "format": "double"
             }
           },
           {
             "name": "precoMax",
             "in": "query",
             "schema": {
+              "maximum": 7.922816251426434e+28,
+              "minimum": 0,
+              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
               "type": [
                 "number",
                 "string"
               ],
-              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
-              "format": "double",
-              "minimum": 0,
-              "maximum": 9999999999.99
+              "format": "double"
             }
           },
           {
@@ -161,17 +154,7 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
@@ -190,11 +173,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": [
-                "integer",
-                "string"
-              ],
               "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -219,16 +199,6 @@
                 }
               }
             }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
           }
         }
       },
@@ -242,11 +212,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": [
-                "integer",
-                "string"
-              ],
               "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -254,6 +221,11 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AtualizarProdutoRequest"
+              }
+            },
+            "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/AtualizarProdutoRequest"
               }
@@ -277,23 +249,13 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -316,11 +278,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": [
-                "integer",
-                "string"
-              ],
               "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
               "format": "int32"
             }
           }
@@ -328,6 +287,11 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlterarStatusProdutoRequest"
+              }
+            },
+            "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/AlterarStatusProdutoRequest"
               }
@@ -351,23 +315,13 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
                 }
               }
             }
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -389,7 +343,14 @@
         "type": "object",
         "properties": {
           "status": {
-            "$ref": "#/components/schemas/StatusProduto"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/StatusProduto"
+              }
+            ]
           }
         }
       },
@@ -404,44 +365,50 @@
           "nome": {
             "maxLength": 200,
             "minLength": 1,
-            "type": "string"
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "descricao": {
             "maxLength": 2000,
+            "minLength": 0,
             "type": [
               "null",
               "string"
             ]
           },
           "preco": {
+            "maximum": 9999999999.99,
+            "minimum": 0,
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
+              "null",
               "number",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
-            "format": "double",
-            "minimum": 0,
-            "maximum": 9999999999.99
+            "format": "double"
           },
           "estoque": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
+              "null",
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "format": "int32",
-            "minimum": 0,
-            "maximum": 2147483647
+            "format": "int32"
           }
         }
       },
       "CampoOrdenacao": {
-        "type": "string",
         "enum": [
           "Nome",
           "Preco",
           "CriadoEm"
-        ]
+        ],
+        "type": "string"
       },
       "CriarProdutoRequest": {
         "required": [
@@ -454,90 +421,49 @@
           "nome": {
             "maxLength": 200,
             "minLength": 1,
-            "type": "string"
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "descricao": {
             "maxLength": 2000,
+            "minLength": 0,
             "type": [
               "null",
               "string"
             ]
           },
           "preco": {
+            "maximum": 9999999999.99,
+            "minimum": 0,
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
+              "null",
               "number",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
-            "format": "double",
-            "minimum": 0,
-            "maximum": 9999999999.99
+            "format": "double"
           },
           "estoque": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
+              "null",
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "format": "int32",
-            "minimum": 0,
-            "maximum": 2147483647
+            "format": "int32"
           }
         }
       },
       "DirecaoOrdenacao": {
-        "type": "string",
         "enum": [
           "Asc",
           "Desc"
-        ]
-      },
-      "HttpValidationProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "title": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "status": {
-            "type": [
-              "null",
-              "integer",
-              "string"
-            ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "format": "int32"
-          },
-          "detail": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "instance": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "errors": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
+        ],
+        "type": "string"
       },
       "PaginaResponseOfProdutoResponse": {
         "required": [
@@ -555,27 +481,27 @@
             }
           },
           "total": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           },
           "page": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           },
           "pageSize": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           }
         }
@@ -596,12 +522,12 @@
             ]
           },
           "status": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "null",
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           },
           "detail": {
@@ -632,11 +558,11 @@
         "type": "object",
         "properties": {
           "id": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           },
           "nome": {
@@ -649,19 +575,19 @@
             ]
           },
           "preco": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
               "number",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "format": "double"
           },
           "estoque": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
               "string"
             ],
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
             "format": "int32"
           },
           "status": {
@@ -678,11 +604,58 @@
         }
       },
       "StatusProduto": {
-        "type": "string",
         "enum": [
           "Ativo",
           "Desativado"
-        ]
+        ],
+        "type": "string"
+      },
+      "ValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     }
   },
