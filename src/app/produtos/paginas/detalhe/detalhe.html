@@ -1,0 +1,41 @@
+<section class="pagina pagina-estreita">
+  @switch (estado().tipo) {
+    @case ('carregando') {
+      <div class="carregando">
+        <mat-spinner diameter="48" aria-label="Carregando produto" />
+      </div>
+    }
+    @case ('ok') {
+      @if (estado(); as e) {
+        @if (e.tipo === 'ok') {
+          <h1>{{ e.produto.nome }}</h1>
+          <app-painel-detalhe [produto]="e.produto" />
+          <div class="acoes">
+            <a mat-button [routerLink]="['/produtos']" [queryParams]="ultimaConsulta.params()">Voltar para a lista</a>
+            <span class="espaco"></span>
+            <a mat-stroked-button [routerLink]="['/produtos', e.produto.id, 'editar']">Editar</a>
+            <button mat-flat-button type="button" [disabled]="alterandoStatus()" (click)="alterarStatus(e.produto)">
+              {{ e.produto.status === 'Ativo' ? 'Desativar' : 'Reativar' }}
+            </button>
+          </div>
+        }
+      }
+    }
+    @case ('nao-encontrado') {
+      <h1 class="cdk-visually-hidden">Produto não encontrado</h1>
+      @if (naoEncontrado(); as erro) {
+        <app-estado-erro [erro]="erro" icone="search_off">
+          <a mat-stroked-button [routerLink]="['/produtos']" [queryParams]="ultimaConsulta.params()">Voltar para a lista</a>
+        </app-estado-erro>
+      }
+    }
+    @case ('erro') {
+      <h1 class="cdk-visually-hidden">Produto</h1>
+      @if (falha(); as erro) {
+        <app-estado-erro [erro]="erro" icone="cloud_off">
+          <button mat-stroked-button type="button" (click)="recarregar()">Tentar novamente</button>
+        </app-estado-erro>
+      }
+    }
+  }
+</section>

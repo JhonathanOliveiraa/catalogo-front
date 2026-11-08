@@ -1,0 +1,31 @@
+<div class="filtros">
+  <mat-form-field class="nome" subscriptSizing="dynamic">
+    <mat-label>Buscar por nome</mat-label>
+    <input matInput type="search" [formControl]="nome" />
+  </mat-form-field>
+
+  <mat-form-field class="status" subscriptSizing="dynamic">
+    <mat-label>Status</mat-label>
+    <mat-select [formControl]="status">
+      <mat-option value="">Todos</mat-option>
+      <mat-option value="Ativo">Ativo</mat-option>
+      <mat-option value="Desativado">Desativado</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="preco" subscriptSizing="dynamic">
+    <mat-label>Preço mínimo</mat-label>
+    <input matInput inputmode="decimal" [formControl]="precoMin" (blur)="aplicarPreco()" (keydown.enter)="aplicarPreco()" />
+    <mat-error>{{ mensagem(precoMin) }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="preco" subscriptSizing="dynamic">
+    <mat-label>Preço máximo</mat-label>
+    <input matInput inputmode="decimal" [formControl]="precoMax" (blur)="aplicarPreco()" (keydown.enter)="aplicarPreco()" />
+    <mat-error>{{ mensagem(precoMax) }}</mat-error>
+  </mat-form-field>
+
+  @if (filtroAtivo()) {
+    <button mat-button type="button" class="limpar" (click)="limpar.emit()">Limpar filtros</button>
+  }
+</div>

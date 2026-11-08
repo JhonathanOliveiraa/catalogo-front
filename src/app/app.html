@@ -1,0 +1,14 @@
+<mat-toolbar class="barra">
+  <a class="titulo" routerLink="/produtos">Catálogo de Produtos</a>
+</mat-toolbar>
+
+<main class="principal">
+  @if (config.estado() === 'falhou') {
+    <section class="pagina pagina-estreita fatal" role="alert">
+      <h1>Catálogo indisponível</h1>
+      <p>{{ mensagemFatal }}</p>
+    </section>
+  } @else {
+    <router-outlet />
+  }
+</main>

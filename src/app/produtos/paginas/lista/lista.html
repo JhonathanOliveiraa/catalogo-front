@@ -1,0 +1,38 @@
+<section class="pagina pagina-lista">
+  <header class="cabecalho">
+    <h1>Produtos</h1>
+    <a mat-flat-button routerLink="/produtos/novo">Cadastrar</a>
+  </header>
+
+  <app-filtros [consulta]="consulta()" (alterar)="alterar($event)" (limpar)="limparFiltros()" />
+
+  <div class="conteudo">
+    @if (carregando()) {
+      <mat-progress-bar mode="indeterminate" aria-label="Carregando produtos" />
+    }
+
+    @if (erroExibivel(); as erro) {
+      <app-estado-erro [erro]="erro" icone="cloud_off">
+        <button mat-stroked-button type="button" (click)="recarregar()">Tentar novamente</button>
+      </app-estado-erro>
+    } @else if (vazio()) {
+      @if (comFiltro()) {
+        <app-estado-vazio mensagem="Nenhum resultado para os filtros">
+          <button mat-stroked-button type="button" (click)="limparFiltros()">Limpar filtros</button>
+        </app-estado-vazio>
+      } @else {
+        <app-estado-vazio mensagem="Nenhum produto cadastrado">
+          <a mat-flat-button routerLink="/produtos/novo">Cadastrar</a>
+        </app-estado-vazio>
+      }
+    } @else if (pagina(); as p) {
+      <app-tabela
+        [itens]="p.itens"
+        [total]="+p.total"
+        [consulta]="consulta()"
+        (alterar)="alterar($event)"
+        (alterarStatus)="alterarStatus($event)"
+      />
+    }
+  </div>
+</section>

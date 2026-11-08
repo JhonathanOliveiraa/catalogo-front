@@ -1,0 +1,11 @@
+<div class="alerta" role="alert">
+  <mat-icon class="icone" aria-hidden="true">error</mat-icon>
+  <div class="conteudo">
+    @if (erro().titulo) {
+      <strong class="titulo">{{ erro().titulo }}</strong>
+    }
+    @for (linha of erro().linhas; track $index) {
+      <p class="linha">{{ linha }}</p>
+    }
+  </div>
+</div>

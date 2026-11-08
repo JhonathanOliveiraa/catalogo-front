@@ -1,0 +1,16 @@
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.conteudo {
+  position: relative;
+  margin-top: 8px;
+}
+
+mat-progress-bar {
+  margin-bottom: 4px;
+}

@@ -1,0 +1,10 @@
+<div class="estado">
+  <mat-icon class="icone" aria-hidden="true">{{ icone() }}</mat-icon>
+  @if (erro().titulo) {
+    <p class="mensagem">{{ erro().titulo }}</p>
+  }
+  @for (linha of erro().linhas; track $index) {
+    <p [class]="erro().titulo ? 'detalhe' : 'mensagem'">{{ linha }}</p>
+  }
+  <ng-content />
+</div>

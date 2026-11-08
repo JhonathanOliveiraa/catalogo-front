@@ -1,0 +1,27 @@
+:host {
+  display: inline-block;
+}
+
+mat-chip {
+  --mat-chip-container-shape-radius: 8px;
+}
+
+.ativo {
+  --mat-chip-elevated-container-color: var(--mat-sys-surface);
+  --mat-chip-label-text-color: var(--mat-sys-on-surface);
+  --mat-chip-outline-color: var(--mat-sys-outline);
+  --mat-chip-outline-width: 1px;
+}
+
+.desativado {
+  --mat-chip-elevated-container-color: var(--catalogo-chip-desativado);
+  --mat-chip-label-text-color: var(--catalogo-on-chip-desativado);
+  --mat-chip-with-avatar-avatar-color: var(--catalogo-on-chip-desativado);
+  --mat-chip-outline-width: 0;
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}

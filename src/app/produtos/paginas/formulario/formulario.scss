@@ -1,0 +1,33 @@
+.carregando {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+mat-spinner {
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 599.98px) {
+  .acoes {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}

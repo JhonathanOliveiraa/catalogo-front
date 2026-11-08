@@ -1,0 +1,52 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: flex-start;
+}
+
+.nome {
+  flex: 2 1 240px;
+}
+
+.status {
+  flex: 1 1 160px;
+}
+
+.preco {
+  flex: 1 1 140px;
+}
+
+.limpar {
+  align-self: center;
+}
+
+/* 600–959 px: duas linhas (busca + status, depois a faixa de preço). */
+@media (min-width: 600px) and (max-width: 959.98px) {
+  .nome {
+    flex-basis: 55%;
+  }
+
+  .status {
+    flex-basis: 30%;
+  }
+
+  .preco {
+    flex-basis: 35%;
+  }
+}
+
+/* < 600 px: empilhados, largura total. */
+@media (max-width: 599.98px) {
+  .filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nome,
+  .status,
+  .preco {
+    flex: none;
+    width: 100%;
+  }
+}

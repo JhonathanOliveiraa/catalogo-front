@@ -1,0 +1,34 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <dl>
+      <div class="campo">
+        <dt>ID</dt>
+        <dd>{{ produto().id }}</dd>
+      </div>
+      <div class="campo">
+        <dt>Descrição</dt>
+        <dd class="descricao">{{ produto().descricao ?? 'Sem descrição' }}</dd>
+      </div>
+      <div class="campo">
+        <dt>Preço</dt>
+        <dd class="numero">{{ produto().preco | currency }}</dd>
+      </div>
+      <div class="campo">
+        <dt>Estoque</dt>
+        <dd class="numero">{{ produto().estoque | number }}</dd>
+      </div>
+      <div class="campo">
+        <dt>Status</dt>
+        <dd><app-chip-status [status]="produto().status" /></dd>
+      </div>
+      <div class="campo">
+        <dt>Criado em</dt>
+        <dd>{{ produto().criadoEm | date: 'dd/MM/yyyy HH:mm' }}</dd>
+      </div>
+      <div class="campo">
+        <dt>Atualizado em</dt>
+        <dd>{{ produto().atualizadoEm | date: 'dd/MM/yyyy HH:mm' }}</dd>
+      </div>
+    </dl>
+  </mat-card-content>
+</mat-card>

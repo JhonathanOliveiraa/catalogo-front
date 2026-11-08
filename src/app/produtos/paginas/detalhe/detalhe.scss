@@ -1,0 +1,28 @@
+.carregando {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.espaco {
+  flex: 1;
+}
+
+@media (max-width: 599.98px) {
+  .acoes {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .espaco {
+    display: none;
+  }
+}

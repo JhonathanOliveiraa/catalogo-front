@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.rolagem {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  --mat-table-background-color: var(--mat-sys-surface);
+}
+
+.numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+th.numero ::ng-deep .mat-sort-header-container {
+  justify-content: flex-end;
+}
+
+.link-nome {
+  color: var(--mat-sys-primary);
+}
+
+.acoes {
+  width: 56px;
+  text-align: right;
+}
+
+.linha-desativada,
+.linha-desativada td {
+  background: var(--catalogo-linha-desativada);
+}
+
+mat-paginator {
+  border-top: 1px solid var(--mat-sys-outline-variant);
+}

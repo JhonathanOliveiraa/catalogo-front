@@ -1,0 +1,10 @@
+<mat-chip-set>
+  @if (status() === 'Desativado') {
+    <mat-chip class="desativado" disableRipple>
+      <mat-icon matChipAvatar aria-hidden="true">block</mat-icon>
+      Desativado
+    </mat-chip>
+  } @else {
+    <mat-chip class="ativo" disableRipple>Ativo</mat-chip>
+  }
+</mat-chip-set>

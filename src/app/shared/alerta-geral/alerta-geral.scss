@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.alerta {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.icone {
+  color: var(--mat-sys-error);
+  flex: none;
+}
+
+.titulo {
+  display: block;
+  font: var(--mat-sys-label-large);
+}
+
+.linha {
+  margin: 0;
+  font: var(--mat-sys-body-medium);
+}

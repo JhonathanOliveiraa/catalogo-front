@@ -1,0 +1,65 @@
+<div class="rolagem">
+  <table
+    mat-table
+    [dataSource]="itens()"
+    matSort
+    [matSortActive]="ordenarPor()"
+    [matSortDirection]="direcao()"
+    matSortDisableClear
+    (matSortChange)="ordenar($event)"
+  >
+    <ng-container matColumnDef="Nome" sticky>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Nome">Nome</th>
+      <td mat-cell *matCellDef="let p">
+        <a class="link-nome" [routerLink]="['/produtos', p.id]">{{ p.nome }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Preco">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition="before" sortActionDescription="Ordenar por Preço" class="numero">Preço</th>
+      <td mat-cell *matCellDef="let p" class="numero">{{ p.preco | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Estoque">
+      <th mat-header-cell *matHeaderCellDef class="numero">Estoque</th>
+      <td mat-cell *matCellDef="let p" class="numero">{{ p.estoque | number }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let p"><app-chip-status [status]="p.status" /></td>
+    </ng-container>
+
+    <ng-container matColumnDef="CriadoEm">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Criado em">Criado em</th>
+      <td mat-cell *matCellDef="let p">{{ p.criadoEm | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef><span class="cdk-visually-hidden">Ações</span></th>
+      <td mat-cell *matCellDef="let p" class="acoes">
+        <button mat-icon-button type="button" [matMenuTriggerFor]="menu" [attr.aria-label]="'Ações para ' + p.nome">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item type="button" (click)="alterarStatus.emit(p)">
+            {{ p.status === 'Ativo' ? 'Desativar' : 'Reativar' }}
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+    <tr mat-row *matRowDef="let p; columns: colunas" [class.linha-desativada]="p.status === 'Desativado'"></tr>
+  </table>
+</div>
+
+<mat-paginator
+  [length]="total()"
+  [pageIndex]="pageIndex()"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="opcoesPagina"
+  [hidePageSize]="compacto()"
+  showFirstLastButtons
+  (page)="paginar($event)"
+/>
