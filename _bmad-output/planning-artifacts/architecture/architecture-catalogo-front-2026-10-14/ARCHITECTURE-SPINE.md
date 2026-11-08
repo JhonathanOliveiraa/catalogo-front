@@ -209,12 +209,12 @@ flowchart TD
 
 | Name | Version |
 | --- | --- |
-| Angular (core, CLI, `@angular/build`) | 22.2.x (22.2.2 em 2026-10-14) |
-| Angular Material / CDK | 22.2.x (M3) |
-| TypeScript | ≥ 6.0 < 6.1 (faixa do Angular 22) |
-| Vitest + jsdom | as instaladas pela CLI 22 |
+| Angular (core, CLI, `@angular/build`) | 22.2.x (22.2.2 em 2026-10-14; implementado com core 22.2.5, CLI/build 22.2.6 em 2026-11-08) |
+| Angular Material / CDK | 22.2.x (M3; implementado com 22.2.6) |
+| TypeScript | ≥ 6.0 < 6.1 (faixa do Angular 22; implementado com 6.0.3. O `latest` do npm é 7.0, fora da faixa) |
+| Vitest + jsdom | as instaladas pela CLI 22 (Vitest 5.1.0, jsdom 30.1.3) |
 | ng-openapi-gen | 1.1.0 |
-| Node.js (CI e estágio de build) | 24 LTS (24.21.0; em manutenção a partir de 2026-10-20) |
+| Node.js (CI e estágio de build) | 24 LTS (24.21.0; em manutenção a partir de 2026-10-20; implementado com 24.22.2) |
 | Imagem final | `nginxinc/nginx-unprivileged:stable-alpine` (Alpine 3.24, arm64, UID 101, porta 8080) |
 
 ## Structural Seed
@@ -305,3 +305,21 @@ Estes itens são do `tcc-platform` e já estão registrados lá, em `golden-path
 | Promoção hml → prd | Responsabilidade do fluxo GitOps no `tcc-platform`; a imagem é a mesma nos dois ambientes. |
 | Logs e métricas do contêiner, check sintético | Coletados e configurados pela plataforma (`golden-path.md`), sem código no front. |
 | Login, i18n, dark mode, PWA, trace no navegador | Non-goals da spec e do UX. |
+
+## Registro de implementação (2026-11-08)
+
+Desvios e esclarecimentos feitos ao implementar as histórias 1.1–2.7. Nenhum muda fronteira de AD.
+
+| Item | O que foi feito | Por quê |
+| --- | --- | --- |
+| AD-1 × AD-3 (import do cliente gerado) | O ESLint libera `src/app/api` para `produtos/produtos.service.ts`, `core/config/**` (só `ApiConfiguration`, para o `rootUrl`) e `*.spec.ts`. | O diagrama já tem a seta `core/config → src/app/api`; a regra do AD-1 citava só o facade. |
+| AD-2 (tipos) | O facade reexporta os tipos e as listas de enums gerados (`ProdutoResponse`, `StatusProduto`, `STATUS_PRODUTO`…); o resto do app importa daqui. | Mantém o facade como único importador sem declarar tipo próprio. |
+| AD-2 (OpenAPI) | `openapi/catalogo-api.json` foi escrito à mão a partir de `docs/referencia-api/`, sem `operationId` (como o .NET 10 gera para controllers): as funções geradas são `produtosGet`, `produtosPost`, `produtosIdGet`, `produtosIdPut`, `produtosIdStatusPatch`. `npm run openapi:atualizar -- <url>` baixa o real e remove `servers`. | A API ainda não publicava `/openapi/v1.json`. `servers[0].url` viraria `rootUrl` padrão e colocaria URL de ambiente no bundle (AD-3). |
+| AD-5 (conversor) | `lerDecimal` aceita um único separador decimal (vírgula ou ponto), sem separador de milhar: "1.234,5" é inválido em todo lugar. `formatarDecimalEntrada` escreve inteiros sem casas e decimais com 2 casas e vírgula. As regras de campo ficam em `produtos/dominio/validacao.ts` (códigos) e as mensagens em `core/erros/mensagens.ts`. | Uma única interpretação, sem ambiguidade entre "1.234" decimal e milhar. |
+| AD-4 (`descreverErro`) | 4xx sem `title` nem `detail` (corpo que não é ProblemDetails) mostra "A API recusou a operação." | O EXPERIENCE não tem texto para esse caso. |
+| AD-7 | `confirmarAlteracaoStatus(produto)` é método do serviço `AlteracaoStatus` (`produtos/status/alteracao-status.ts`), que injeta `MatDialog`, o facade e `Avisos`. | Precisa de injeção; continua sendo a única porta da CAP-5. |
+| AD-8 (validação de `API_BASE_URL`) | Regex `^https://[^"\\[:space:]]*[^"\\/[:space:]]$` + rejeição de quebra de linha. | O padrão do spine deixava o último caractere ser espaço ou aspas, e `grep` avalia linha a linha. |
+| AD-8 (nginx) | Além do especificado: `absolute_redirect off`, `server_tokens off`, `gzip` e `listen 8080` só IPv4. Hash: `-[A-Za-z0-9_-]{8}.(js\|css\|…)` e `/media/`. | Redirect com a porta 8080 vazaria atrás do Gateway; os nomes do esbuild têm `-` e minúsculas no hash. |
+| Budget de build | `initial` com aviso em 800 kB (erro continua em 1 MB). | Material + router + forms no chunk inicial passam de 500 kB. |
+| História 1.5 × `ci.yml` | O `ci.yml` usa `push` só na `main` e `overlay-path: apps/catalogo-front/hml` fixo, conforme instrução do usuário, e não o mapeamento `develop`→hml / `main`→prd da história. | Hoje só existe o ambiente hml e a branch `main`. |
+

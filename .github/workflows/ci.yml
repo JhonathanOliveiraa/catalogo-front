@@ -1,11 +1,10 @@
 name: ci
 
 on:
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
-  # Ligar quando existirem código e Dockerfile:
-  # push:
-  #   branches: [main]
-  # pull_request:
 
 permissions:
   contents: read
@@ -16,7 +15,10 @@ jobs:
     uses: JhonathanOliveiraa/tcc-pipeline-templates/.github/workflows/frontend-service.yml@main
     with:
       platform-repository: JhonathanOliveiraa/tcc-platform
-      overlay-path: apps/catalogo-front
+      overlay-path: apps/catalogo-front/hml
+      # Vitest + jsdom sob Node 24 (AD-9); os padrões do template (ChromeHeadless, Node 22) não servem.
+      node-version: "24"
+      test-command: "npm test -- --watch=false"
       enable-deploy: ${{ github.event_name != 'pull_request' }}
     secrets:
       platform-token: ${{ secrets.PLATFORM_REPO_TOKEN }}
