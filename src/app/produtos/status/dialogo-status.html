@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ desativar ? 'Desativar produto?' : 'Reativar produto?' }}</h2>
+<mat-dialog-content>
+  @if (desativar) {
+    <p>“{{ dados.produto.nome }}” continuará visível na listagem, marcado como Desativado. Você pode reativá-lo depois.</p>
+  } @else {
+    <p>“{{ dados.produto.nome }}” voltará a ficar Ativo.</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" mat-dialog-close [disabled]="executando()">Cancelar</button>
+  <button mat-flat-button type="button" [disabled]="executando()" (click)="confirmar()">
+    @if (executando()) {
+      <mat-spinner diameter="18" aria-label="Processando" />
+    }
+    {{ desativar ? 'Desativar' : 'Reativar' }}
+  </button>
+</mat-dialog-actions>
