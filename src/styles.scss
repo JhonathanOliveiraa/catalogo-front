@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+@use './theme-colors' as tema;
+
+// Tema único M3 claro (DESIGN.md). Paletas geradas por
+// `ng generate @angular/material:theme-color --primary-color=#455A64` (src/_theme-colors.scss).
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        primary: tema.$primary-palette,
+        tertiary: tema.$tertiary-palette,
+        theme-type: light,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  // Delta de marca: primária fixada e superfície branca pura.
+  --mat-sys-primary: #455a64;
+  --mat-sys-surface: #ffffff;
+
+  // Tokens próprios do estado Desativado.
+  --catalogo-linha-desativada: #eeeeee;
+  --catalogo-chip-desativado: #e0e0e0;
+  --catalogo-on-chip-desativado: #1d1b20;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+}
+
+h1 {
+  font: var(--mat-sys-headline-small);
+  margin: 0 0 16px;
+}
+
+// Coluna única centralizada: listagem até 1200 px, formulário e detalhe até 720 px.
+.pagina {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pagina-estreita {
+  max-width: 720px;
+}

@@ -1,7 +1,24 @@
+# Dependências e saídas
 node_modules/
 dist/
 .angular/
 coverage/
+/out-tsc
+/tmp
+
+# Cliente gerado do OpenAPI (AD-2): gerado em prestart/pretest/prebuild, nunca editado
+/src/app/api/
+
+# Config local de desenvolvimento (copie de public/config.example.json) (AD-3)
+/public/config.json
+
+# Editores e sistema
 .vscode/
-*.env
+.idea/
+*.sublime-workspace
 .DS_Store
+Thumbs.db
+*.env
+npm-debug.log
+.sass-cache/
+__screenshots__/
