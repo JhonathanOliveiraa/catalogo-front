@@ -1,0 +1,18 @@
+# Contexto mínimo do build (AD-8)
+.git
+.github
+.angular
+.vscode
+.claude
+.agents
+_bmad
+_bmad-output
+docs
+node_modules
+dist
+coverage
+src/app/api
+public/config.json
+Dockerfile
+.dockerignore
+*.md
