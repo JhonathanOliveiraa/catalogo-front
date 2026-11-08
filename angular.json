@@ -29,7 +29,10 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "ignore": [
+                  "config.example.json"
+                ]
               }
             ],
             "styles": [
